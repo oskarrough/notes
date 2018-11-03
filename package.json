@@ -1,0 +1,35 @@
+{
+  "name": "notes",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@reach/router": "^1.2.1",
+    "codemirror": "^5.41.0",
+    "nanoid": "^1.3.1",
+    "react": "^16.7.0-alpha.0",
+    "react-dom": "^16.7.0-alpha.0",
+    "react-scripts": "2.0.5",
+    "remotestorage-widget": "^1.3.0",
+    "remotestoragejs": "^1.0.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "now-start": "serve -s build",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "format": "prettier src/**/* --write"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "serve": "^10.0.2"
+  }
+}
