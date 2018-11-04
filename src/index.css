@@ -1,6 +1,6 @@
 body {
-  margin: 1rem;
-  font: 15px/1 system-ui, "Segoe UI", sans-serif;
+	margin: 1rem;
+	font: 15px/1 system-ui, 'Segoe UI', sans-serif;
 }
 
 nav {
@@ -15,10 +15,9 @@ nav a[aria-current] {
 	text-decoration: underline;
 }
 
-.CodeMirror {
+div.CodeMirror {
 	border: 1px solid;
-	height: calc(100vh - 6rem);
+	/* height: calc(100vh - 6rem); */
 	height: 100px;
 	margin-bottom: 1rem;
 }
-

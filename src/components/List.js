@@ -1,42 +1,67 @@
 import React, {useState, useEffect} from 'react'
 import {Link} from '@reach/router'
-import store, {findAll} from '../store'
+import score from '../stringScore'
 
-function ListItem(props) {
-	return (
-		<li>
-			<Link to={'/' + props.item.id}>{props.item.content}</Link>
-		</li>
+const ListItem = ({item}) => (
+	<li>
+		<Link to={'/' + item.id}>
+			{item.title} — <small>{item.content}</small>
+			<span style={{color: 'red'}}>
+				{' '}
+				{item.titleScore}/{item.contentScore}
+			</span>
+		</Link>
+	</li>
+)
+
+export default function List({notes, filter, onFilter}) {
+	const [filteredNotes, setFilteredNotes] = useState([])
+
+	useEffect(
+		function doSearch() {
+			let fuzzy = false
+			let results = notes
+				.map(note => {
+					note.titleScore = score(note.title, filter, fuzzy)
+					note.contentScore = score(note.content, filter, fuzzy)
+					return note
+				})
+				.filter(note => {
+					return note.titleScore + note.contentScore > 0
+				})
+			// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+			results = results.sort(
+				(a, b) => a.titleScore + a.contentScore - (b.titleScore + b.contentScore)
+			)
+			// results = results.orderBy('contentScore')
+			setFilteredNotes(results)
+			if (onFilter) onFilter(results)
+		},
+		[filter]
 	)
-}
 
-export default function List() {
-	const [notes, setNotes] = useState([])
-
-	useEffect(() => {
-		findAll()
-			.then(notes => setNotes(notes))
-			.catch(err => {
-				console.log(err)
-			})
-	}, [])
-
-	function deleteAll() {
-		store.local.reset()
-		setNotes([])
-	}
+	let list = filter ? filteredNotes : notes
 
 	return (
 		<div>
-			<p>
-				We have {notes.length} notes.
-				<button onClick={deleteAll}>Delete all</button>
-			</p>
-			<ul>
-				{notes.map((note, index) => (
-					<ListItem item={note} key={index} />
-				))}
-			</ul>
+			{list.length ? (
+				<div>
+					<ul>
+						{list.map((note, index) => (
+							<ListItem item={note} key={index} />
+						))}
+					</ul>
+					{filter ? (
+						<p>
+							Filtering for <em>{filter}</em>. Showing {list.length} of {notes.length} notes.
+						</p>
+					) : (
+						''
+					)}
+				</div>
+			) : (
+				<p>No notes.</p>
+			)}
 		</div>
 	)
 }
