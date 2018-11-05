@@ -10,7 +10,7 @@
     "react-dom": "^16.7.0-alpha.0",
     "react-scripts": "2.0.5",
     "remotestorage-widget": "^1.3.0",
-    "remotestoragejs": "^1.0.3"
+		"remotestoragejs": "git://github.com/hugurp/remotestorage.js.git#a684dfe"
   },
   "scripts": {
     "start": "react-scripts start",
