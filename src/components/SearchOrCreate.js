@@ -22,6 +22,7 @@ export default function SearchOrCreate(props) {
 				<input
 					value={props.value}
 					ref={inputEl}
+					type="search"
 					autoFocus
 					placeholder="Search or create"
 					onChange={handleChange}

@@ -72,30 +72,31 @@ export default function Home(props) {
 		// setActiveNote(note)
 	}
 
+	// Clear search query and active note + set focus to search.
 	function onEscape() {
 		setQuery('')
 		setActiveNote(null)
 		navigate('/')
 	}
 
-	// When you press "ESCAPE", focus the search input and reset query.
 	function handleKeyPress(event) {
 		if (event.key === 'Escape') onEscape()
 	}
 
 	return (
-		<div className="Home" onKeyDown={handleKeyPress} tabIndex="-1">
+		<div className="Home" onKeyDown={handleKeyPress} tabIndex="0">
 			<SearchOrCreate value={query} onChange={handleChange} onSubmit={handleSubmit} />
 			<List notes={notes} filter={query} onFilter={setFilteredList} />
 			<Note note={activeNote} onChange={handleContentChange} />
-
-			{notes.length ? (
-				<p>
-					<button onClick={deleteNotes}>Delete all notes</button>
-				</p>
-			) : (
-				''
-			)}
+			<footer>
+				{notes.length ? (
+					<p>
+						<button onClick={deleteNotes}>Delete all notes</button>
+					</p>
+				) : (
+					''
+				)}
+			</footer>
 		</div>
 	)
 }

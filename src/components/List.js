@@ -47,21 +47,14 @@ export default function List({notes, filter, onFilter}) {
 	let list = filter ? filteredNotes : notes
 
 	return (
-		<div className="List">
+		<div>
 			{list.length ? (
 				<div>
-					<ul>
+					<ul className="List">
 						{list.map((note, index) => (
 							<ListItem item={note} key={index} />
 						))}
 					</ul>
-					{filter ? (
-						<p>
-							Filtering for <em>{filter}</em>. Showing {list.length} of {notes.length} notes.
-						</p>
-					) : (
-						''
-					)}
 				</div>
 			) : (
 				<p>No notes.</p>
