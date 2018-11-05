@@ -7,7 +7,7 @@ import store, {findAll, findNote, saveNote} from '../store'
 
 export default function Home(props) {
 	let [notes, setNotes] = useState([])
-	let [query, setQuery] = useState()
+	let [query, setQuery] = useState('')
 	let [filteredList, setFilteredList] = useState()
 	let [activeNote, setActiveNote] = useState({})
 
@@ -50,37 +50,48 @@ export default function Home(props) {
 
 	async function handleSubmit() {
 		let firstResult = filteredList[0]
-		console.log({submit: query, firstResult, filteredList})
-		// if search result, load it and set cursor at end
-		// else create new note with query as "title"
+
+		// If we have a result when you submit, switch to it.
 		if (firstResult) {
-			console.log('todo focus editor with', {firstResult})
-			// navigate(`/${firstResult.id}`)
-		} else {
-			console.log('no note found. create new?', query)
-			try {
-				let note = await saveNote(query)
-				setActiveNote(note)
-				navigate(`/${note.id}`)
-			} catch (err) {
-				alert('could not save')
-			}
+			navigate(`/${firstResult.id}`)
+			return
+			// @todo set focus on last line of <Editor>
+		}
+
+		// Else, create new note and set the query as "title"
+		try {
+			let note = await saveNote(query)
+			setActiveNote(note)
+			navigate(`/${note.id}`)
+		} catch (err) {
+			alert('could not save')
 		}
 	}
 
 	async function updateContent(content) {
 		let note = await saveNote(activeNote.title, content, activeNote.id)
-		console.log({note})
+		// Not setting active note because it messes up the <Editor> value/cursor.
 		// setActiveNote(note)
 	}
 
-	// ESC: focus search
+	function onEscape() {
+		console.log('clearing')
+		setQuery('')
+		setActiveNote(null)
+		navigate('/')
+	}
 
 	return (
 		<div>
-			<SearchOrCreate onChange={handleChange} onSubmit={handleSubmit} />
+			<SearchOrCreate
+				value={query}
+				onChange={handleChange}
+				onSubmit={handleSubmit}
+				onEscape={onEscape}
+			/>
 			<List notes={notes} filter={query} onFilter={setFilteredList} />
 			<Note note={activeNote} onChange={updateContent} />
+
 			{notes.length ? (
 				<p>
 					<button onClick={deleteNotes}>Delete all notes</button>
