@@ -15,7 +15,6 @@ export default function Home(props) {
 
 	useEffect(
 		function loadNotes() {
-			console.log('loadNotes')
 			findAll()
 				.then(notes => setNotes(notes))
 				.catch(err => {
