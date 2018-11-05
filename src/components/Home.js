@@ -6,12 +6,11 @@ import List from './List'
 import store, {findAll, findNote, saveNote} from '../store'
 
 export default function Home(props) {
+	let {'*': noteId} = props
 	let [notes, setNotes] = useState([])
 	let [query, setQuery] = useState('')
 	let [filteredList, setFilteredList] = useState()
 	let [activeNote, setActiveNote] = useState()
-
-	const {'*': noteId} = props
 
 	useEffect(
 		function loadNotes() {
@@ -44,8 +43,8 @@ export default function Home(props) {
 	)
 
 	function handleChange(query) {
+		setActiveNote(null) // stop editing
 		setQuery(query)
-		setActiveNote(null)
 	}
 
 	async function handleSubmit() {
@@ -55,31 +54,28 @@ export default function Home(props) {
 		if (firstResult) {
 			navigate(`/${firstResult.id}`)
 			return
-			// @todo set focus on last line of <Editor>
 		}
 
-		// Else, create new note and set the query as "title"
+		// Else, create new note, set the query as "title" and switch to it.
 		try {
 			let note = await saveNote(query)
 			setActiveNote(note)
 			navigate(`/${note.id}`)
 		} catch (err) {
-			alert('could not save')
+			throw new Error('could not save note', err)
 		}
 	}
 
-	async function updateContent(content) {
+	async function handleContentChange(content) {
 		await saveNote(activeNote.title, content, activeNote.id)
 		// Not setting active note because it messes up the <Editor> value/cursor.
 		// setActiveNote(note)
 	}
 
 	function onEscape() {
-		console.log('clearing')
 		setQuery('')
 		setActiveNote(null)
 		navigate('/')
-		// set focus to input!!
 	}
 
 	// When you press "ESCAPE", focus the search input and reset query.
@@ -88,10 +84,10 @@ export default function Home(props) {
 	}
 
 	return (
-		<div onKeyUp={handleKeyPress}>
+		<div className="Home" onKeyDown={handleKeyPress} tabIndex="-1">
 			<SearchOrCreate value={query} onChange={handleChange} onSubmit={handleSubmit} />
 			<List notes={notes} filter={query} onFilter={setFilteredList} />
-			<Note note={activeNote} onChange={updateContent} />
+			<Note note={activeNote} onChange={handleContentChange} />
 
 			{notes.length ? (
 				<p>
