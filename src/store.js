@@ -45,15 +45,10 @@ const Notes = {
           })
         },
         save(title, content, id) {
-          if (!id) {
-            console.log('CREATE')
-            id = nanoid()
-          } else {
-            console.log('UPDATE')
-          }
+          console.log(id ? 'UPDATE' : 'CREATE', title)
+          if (!id) id = nanoid()
 					if (!content) content = '' // content can't be undefined
           let note = {id, title, content}
-					// console.log('note to persist', note)
           return privateClient.storeObject('note', id, note)
             .then(() => note)
             .catch(err => console.log(err))

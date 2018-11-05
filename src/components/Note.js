@@ -2,21 +2,15 @@ import React from 'react'
 import Editor from './Editor'
 
 export default function Note({note, onChange}) {
-	// async function handleChange(content) {
-	// 	let note = await saveNote(activeNote.title, content, activeNote.id)
-	// 	console.log({ note })
-	// 	setActiveNote(note)
-	// }
-	if (!note) {
-		return ''
-	}
+	if (!note) return ''
+
+	// todo, title should also be editable.
 
 	return (
 		<div>
-			id: {note.id}
-			<br />
-			title: {note.title}
-			<br />
+			<p>
+				<strong>{note.title}</strong> <small>({note.id})</small>
+			</p>
 			<Editor value={note.content} onChange={onChange} />
 		</div>
 	)

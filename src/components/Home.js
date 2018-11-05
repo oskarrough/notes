@@ -32,9 +32,7 @@ export default function Home(props) {
 	useEffect(
 		async function loadNote() {
 			if (noteId) {
-				console.log('loadNote', noteId)
 				let note = await findNote(noteId)
-				console.log({note})
 				if (!note) {
 					console.log('no note with this id, going back to home')
 					navigate('/')
@@ -48,7 +46,6 @@ export default function Home(props) {
 	function handleChange(query) {
 		setQuery(query)
 		setActiveNote(null)
-		// navigate('/')
 	}
 
 	async function handleSubmit() {
@@ -77,9 +74,6 @@ export default function Home(props) {
 		// setActiveNote(note)
 	}
 
-	// useEffect(() => {
-	// 	console.log('query effect', query)
-	// }, [query])
 	// ESC: focus search
 
 	return (

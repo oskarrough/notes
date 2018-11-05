@@ -5,11 +5,16 @@ import score from '../stringScore'
 const ListItem = ({item}) => (
 	<li>
 		<Link to={'/' + item.id}>
-			{item.title} — <small>{item.content}</small>
-			<span style={{color: 'red'}}>
-				{' '}
-				{item.titleScore}/{item.contentScore}
-			</span>
+			{item.title}
+			{item.content ? <small> - {item.content}</small> : ''}
+			{item.titleScore || item.contentScore ? (
+				<span style={{color: 'red'}}>
+					{' '}
+					{item.titleScore}/{item.contentScore}
+				</span>
+			) : (
+				''
+			)}
 		</Link>
 	</li>
 )
@@ -33,7 +38,6 @@ export default function List({notes, filter, onFilter}) {
 			results = results.sort(
 				(a, b) => a.titleScore + a.contentScore - (b.titleScore + b.contentScore)
 			)
-			// results = results.orderBy('contentScore')
 			setFilteredNotes(results)
 			if (onFilter) onFilter(results)
 		},
@@ -43,7 +47,7 @@ export default function List({notes, filter, onFilter}) {
 	let list = filter ? filteredNotes : notes
 
 	return (
-		<div>
+		<div className="List">
 			{list.length ? (
 				<div>
 					<ul>

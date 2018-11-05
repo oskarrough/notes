@@ -3,21 +3,19 @@ body {
 	font: 15px/1 system-ui, 'Segoe UI', sans-serif;
 }
 
-nav {
-	margin-bottom: 1rem;
-}
-
-nav a {
-	color: black;
-	text-decoration: none;
-}
-nav a[aria-current] {
-	text-decoration: underline;
-}
-
 div.CodeMirror {
 	border: 1px solid;
 	/* height: calc(100vh - 6rem); */
 	height: 100px;
 	margin-bottom: 1rem;
+}
+
+small {
+	font-size: 1em;
+	color: #666;
+}
+
+.List a {
+	color: black;
+	text-decoration: none;
 }
