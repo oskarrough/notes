@@ -8,8 +8,7 @@ const ListItem = ({item}) => (
 			{item.title}
 			{item.content ? <small> - {item.content}</small> : ''}
 			{item.titleScore || item.contentScore ? (
-				<span style={{color: 'red'}}>
-					{' '}
+				<span className="Debug">
 					{item.titleScore}/{item.contentScore}
 				</span>
 			) : (
@@ -47,18 +46,10 @@ export default function List({notes, filter, onFilter}) {
 	let list = filter ? filteredNotes : notes
 
 	return (
-		<div>
-			{list.length ? (
-				<div>
-					<ul className="List">
-						{list.map((note, index) => (
-							<ListItem item={note} key={index} />
-						))}
-					</ul>
-				</div>
-			) : (
-				<p>No notes.</p>
-			)}
-		</div>
+		<ul className="List">
+			{list.map((note, index) => (
+				<ListItem item={note} key={index} />
+			))}
+		</ul>
 	)
 }

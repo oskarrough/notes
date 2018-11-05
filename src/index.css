@@ -8,6 +8,8 @@ body {
 
 .Home {
 	min-height: 100vh;
+	display: flex;
+	flex-flow: column nowrap;
 }
 
 form {
@@ -32,14 +34,12 @@ small {
 }
 
 .List {
-	/* border-bottom: 1px solid; */
 	margin: 0;
 	padding-left: 0;
 	list-style: none;
 	line-height: 1.5;
 	max-height: 60vh;
 	overflow: auto;
-	border-bottom: 1px solid;
 }
 
 .List li {
@@ -47,7 +47,7 @@ small {
 }
 
 .List li:last-child {
-	border-bottom: none;
+	border-bottom: 1px solid;
 }
 
 .List a {
@@ -65,7 +65,26 @@ div.CodeMirror {
 	height: 10rem;
 	font-family: inherit;
 	border-bottom: 1px solid;
-	padding: 0.5rem;
+	padding: 0.5rem 0.4rem;
 	background: hsla(0, 0%, 75%, 0.25);
 }
 
+.Debug {
+	font-size: small;
+	color: red;
+}
+
+footer {
+	margin-top: auto;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	padding-left: 0.4rem;
+	padding-right: 0.4rem;
+	background: black;
+	color: white;
+}
+
+footer button {
+	margin-left: auto;
+}

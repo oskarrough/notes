@@ -33,6 +33,7 @@ export default class Editor extends Component {
 	setFocus() {
 		this.cm.focus()
 		this.cm.setCursor(this.cm.lineCount(), 0)
+		console.log('focus')
 	}
 
 	render() {

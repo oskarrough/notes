@@ -3,13 +3,14 @@ import {navigate} from '@reach/router'
 import SearchOrCreate from './SearchOrCreate'
 import Note from './Note'
 import List from './List'
+import StatusLine from './StatusLine'
 import store, {findAll, findNote, saveNote} from '../store'
 
 export default function Home(props) {
 	let {'*': noteId} = props
 	let [notes, setNotes] = useState([])
 	let [query, setQuery] = useState('')
-	let [filteredList, setFilteredList] = useState()
+	let [filteredList, setFilteredList] = useState([])
 	let [activeNote, setActiveNote] = useState()
 
 	useEffect(
@@ -85,14 +86,19 @@ export default function Home(props) {
 
 	return (
 		<div className="Home" onKeyDown={handleKeyPress} tabIndex="0">
-			<SearchOrCreate value={query} onChange={handleChange} onSubmit={handleSubmit} />
-			<List notes={notes} filter={query} onFilter={setFilteredList} />
+			<SearchOrCreate key={noteId} value={query} onChange={handleChange} onSubmit={handleSubmit} />
+			<List notes={notes} filter={query} onFilter={results => setFilteredList(results)} />
 			<Note note={activeNote} onChange={handleContentChange} />
 			<footer>
+				<StatusLine
+					hasNotes={Boolean(notes.length)}
+					isSearching={query}
+					isEditing={Boolean(activeNote && activeNote.title)}
+					searchResults={filteredList}
+					title={activeNote && activeNote.title}
+				/>
 				{notes.length ? (
-					<p>
-						<button onClick={deleteNotes}>Delete all notes</button>
-					</p>
+					<button onClick={deleteNotes}>Delete all notes</button>
 				) : (
 					''
 				)}
