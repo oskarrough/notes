@@ -30,9 +30,10 @@ const Notes = {
       type: 'object',
       properties: {
         id: {type: 'string'},
+        title: {type: 'string'},
         content: {type: 'string'}
       },
-      required: ['id', 'content']
+      required: ['title']
     })
     return {
       exports: {
@@ -43,12 +44,12 @@ const Notes = {
             return notes[id]
           })
         },
-        save(content, newId) {
-					console.log('saving', newId, content)
-          const id = newId ? newId : nanoid()
-          const note = {id, content}
-          return privateClient
-            .storeObject('note', id, note)
+        save(title, content, id) {
+          console.log(id ? 'UPDATE' : 'CREATE', title)
+          if (!id) id = nanoid()
+					if (!content) content = '' // content can't be undefined
+          let note = {id, title, content}
+          return privateClient.storeObject('note', id, note)
             .then(() => note)
             .catch(err => console.log(err))
         },
@@ -56,9 +57,10 @@ const Notes = {
     }
   }
 }
+
 storage.addModule(Notes)
 
-export function saveNote(content, id) {
+export function saveNote(title, content, id) {
   return storage.notes.save(...arguments)
 }
 
@@ -74,6 +76,7 @@ export async function findAll() {
   return Object.keys(notes).map(key => {
     return {
       id: key,
+      title: notes[key].title,
       content: notes[key].content
     }
   })

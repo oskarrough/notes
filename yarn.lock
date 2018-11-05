@@ -8161,10 +8161,9 @@ remotestorage-widget@^1.3.0:
   resolved "https://registry.yarnpkg.com/remotestorage-widget/-/remotestorage-widget-1.3.0.tgz#6416d0da35fc30bf585331a179079656ed6b1517"
   integrity sha512-RV9SjrSIXOcg/O6FkZzhlKTpB10vnxygErwi7ID+7urxxybTv8rPLvabsx8ahWjEHLfAeHXznmtuoz4clNc0Xw==
 
-remotestoragejs@^1.0.3:
+"remotestoragejs@git://github.com/hugurp/remotestorage.js.git#a684dfe":
   version "1.0.3"
-  resolved "https://registry.yarnpkg.com/remotestoragejs/-/remotestoragejs-1.0.3.tgz#8256b3f58c7369db5669814b3a10b6c3bb779830"
-  integrity sha512-es03OF5+nZ+sRFgxD97qLRApbBs+rdZ5H4aOH5piI4Cz1Y+3PL+jumdZ+w1WDb3XlPSRXr31VhBHGadM1q2n6g==
+  resolved "git://github.com/hugurp/remotestorage.js.git#a684dfe2bbc3d35b2026641d70e1fa5532ce5744"
   dependencies:
     tv4 "^1.3.0"
     webfinger.js "^2.6.6"

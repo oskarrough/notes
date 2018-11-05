@@ -9,22 +9,31 @@ export default class Editor extends Component {
 	}
 
 	componentDidMount() {
-		this.editor = CodeMirror(this.myRef.current, {
-			value: this.props.value
-		})
-		this.editor.on('change', () => this.handleChange())
+		this.cm = CodeMirror(this.myRef.current)
+		if (this.props.value) {
+			this.cm.setValue(this.props.value)
+			this.setFocus()
+		}
+		this.cm.on('change', () => this.handleChange())
 	}
 
 	componentDidUpdate(prevProps) {
-		const value = this.props.value || ''
+		const value = this.props.value
 		if (value !== prevProps.value) {
-			this.editor.setValue(value)
+			this.cm.setValue(value)
 		}
+		this.setFocus()
 	}
 
 	handleChange() {
-		const value = this.editor.getValue()
+		const value = this.cm.getValue()
 		this.props.onChange(value)
+	}
+
+	setFocus() {
+		this.cm.focus()
+		this.cm.setCursor(this.cm.lineCount(), 0)
+		console.log('focus')
 	}
 
 	render() {
