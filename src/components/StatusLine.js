@@ -10,7 +10,7 @@ export default function StatusLine(props) {
 		return `SEARCH ${
 			searchResults && searchResults.length
 				? 'Found ' + searchResults.length + ' notes. Press <enter> to select.'
-				: `Press <enter> to create a new note`
+				: `No results. Press <enter> to create a new note`
 		}`
 
 	return 'READY'

@@ -11,10 +11,11 @@ export default function Home(props) {
 	let [notes, setNotes] = useState([])
 	let [query, setQuery] = useState('')
 	let [filteredList, setFilteredList] = useState([])
-	let [activeNote, setActiveNote] = useState()
+	let [activeNote, setActiveNote] = useState(null)
 
 	useEffect(
 		function loadNotes() {
+			console.log('loadNotes')
 			findAll()
 				.then(notes => setNotes(notes))
 				.catch(err => {
@@ -27,6 +28,8 @@ export default function Home(props) {
 	function deleteNotes() {
 		store.local.reset()
 		setNotes([])
+		setActiveNote(null)
+		navigate('/')
 	}
 
 	useEffect(

@@ -81,8 +81,9 @@ footer {
 	justify-content: space-between;
 	padding-left: 0.4rem;
 	padding-right: 0.4rem;
+	line-height: 1.7;
 	background: black;
-	color: white;
+	color: #dadada;
 }
 
 footer button {
