@@ -69,7 +69,7 @@ export default function Home(props) {
 	}
 
 	async function updateContent(content) {
-		let note = await saveNote(activeNote.title, content, activeNote.id)
+		await saveNote(activeNote.title, content, activeNote.id)
 		// Not setting active note because it messes up the <Editor> value/cursor.
 		// setActiveNote(note)
 	}
