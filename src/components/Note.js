@@ -2,7 +2,8 @@ import React from 'react'
 import Editor from './Editor'
 
 export default function Note({note, onChange}) {
-	if (!note) return ''
+	console.log(note)
+	if (!note || !note.title) return ''
 
 	// todo, title should also be editable.
 

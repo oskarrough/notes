@@ -13,6 +13,7 @@ export default class Editor extends Component {
 		if (this.props.value) {
 			console.log('Setting initial <Editor> value. Should focus?')
 			this.codeMirror.setValue(this.props.value)
+			this.setFocus()
 		}
 		this.codeMirror.on('change', () => this.handleChange())
 	}
@@ -22,17 +23,21 @@ export default class Editor extends Component {
 		if (value !== prevProps.value) {
 			console.log(
 				`<Editor> did update. Overwriting codemirror value from`,
-				prevProps.value,
-				'to',
-				value
+				prevProps.value, 'to', value
 			)
 			this.codeMirror.setValue(value)
+			this.setFocus()
 		}
 	}
 
 	handleChange() {
 		const value = this.codeMirror.getValue()
 		this.props.onChange(value)
+	}
+
+	setFocus() {
+		this.codeMirror.focus()
+		this.codeMirror.setCursor(this.codeMirror.lineCount(), 0)
 	}
 
 	render() {

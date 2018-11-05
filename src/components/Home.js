@@ -9,7 +9,7 @@ export default function Home(props) {
 	let [notes, setNotes] = useState([])
 	let [query, setQuery] = useState('')
 	let [filteredList, setFilteredList] = useState()
-	let [activeNote, setActiveNote] = useState({})
+	let [activeNote, setActiveNote] = useState()
 
 	const {'*': noteId} = props
 
@@ -79,16 +79,17 @@ export default function Home(props) {
 		setQuery('')
 		setActiveNote(null)
 		navigate('/')
+		// set focus to input!!
+	}
+
+	// When you press "ESCAPE", focus the search input and reset query.
+	function handleKeyPress(event) {
+		if (event.key === 'Escape') onEscape()
 	}
 
 	return (
-		<div>
-			<SearchOrCreate
-				value={query}
-				onChange={handleChange}
-				onSubmit={handleSubmit}
-				onEscape={onEscape}
-			/>
+		<div onKeyUp={handleKeyPress}>
+			<SearchOrCreate value={query} onChange={handleChange} onSubmit={handleSubmit} />
 			<List notes={notes} filter={query} onFilter={setFilteredList} />
 			<Note note={activeNote} onChange={updateContent} />
 
