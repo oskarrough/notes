@@ -11,11 +11,9 @@ import Home from './Home'
 // <List path="/open" />
 
 let App = () => (
-	<div>
-		<Router>
-			<Home path="/*" />
-		</Router>
-	</div>
+	<Router>
+		<Home path="/*" />
+	</Router>
 )
 
 export default App
