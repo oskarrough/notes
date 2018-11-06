@@ -7,7 +7,7 @@ body {
 }
 
 .Home {
-	min-height: 100vh;
+	height: 100vh;
 	display: flex;
 	flex-flow: column nowrap;
 }
@@ -38,8 +38,8 @@ small {
 	padding-left: 0;
 	list-style: none;
 	line-height: 1.5;
-	max-height: 60vh;
 	overflow: auto;
+	/* overflow-scrolling: contain; */
 }
 
 .List li {
@@ -47,7 +47,7 @@ small {
 }
 
 .List li:last-child {
-	border-bottom: 1px solid;
+	border-bottom: none;
 }
 
 .List a {
@@ -62,7 +62,9 @@ small {
 }
 
 div.CodeMirror {
-	height: 10rem;
+	border-top: 1px solid;
+	flex: 1;
+	margin-bottom: 1rem;
 	font-family: inherit;
 	border-bottom: 1px solid;
 	padding: 0.5rem 0.4rem;
@@ -75,7 +77,10 @@ div.CodeMirror {
 }
 
 footer {
-	margin-top: auto;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	z-index: 1;
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: space-between;

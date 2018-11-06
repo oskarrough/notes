@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {navigate} from '@reach/router'
 import SearchOrCreate from './SearchOrCreate'
-import Note from './Note'
 import List from './List'
+import Editor from './Editor'
 import StatusLine from './StatusLine'
 import store, {findAll, findNote, saveNote} from '../store'
 
@@ -90,7 +90,9 @@ export default function Home(props) {
 		<div className="Home" onKeyDown={handleKeyPress} tabIndex="0">
 			<SearchOrCreate key={noteId} value={query} onChange={handleChange} onSubmit={handleSubmit} />
 			<List notes={notes} filter={query} onFilter={results => setFilteredList(results)} />
-			<Note note={activeNote} onChange={handleContentChange} />
+			{activeNote && activeNote.title ? (
+			<Editor value={activeNote.content} onChange={handleContentChange} />
+			) : '' }
 			<footer>
 				<StatusLine
 					hasNotes={Boolean(notes.length)}
