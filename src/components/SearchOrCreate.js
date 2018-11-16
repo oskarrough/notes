@@ -12,9 +12,12 @@ export default function SearchOrCreate(props) {
 		if (props.onSubmit) props.onSubmit()
 	}
 
-	useEffect(() => {
-		inputEl.current.focus()
-	}, [props.value])
+	useEffect(
+		() => {
+			inputEl.current.focus()
+		},
+		[props.value]
+	)
 
 	return (
 		<form onSubmit={handleSubmit}>
